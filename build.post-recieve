@@ -1,0 +1,10 @@
+#!/bin/sh
+# This is the post receive hook which updates the decod.es build server
+
+GIT_WORK_TREE=/var/www/build.decod.es/app git checkout -f
+cd /var/www/build.decod.es/app
+pm2 stop build.decodes.json
+pm2 delete build.decodes.json
+pm2 start build.decodes.json
+pm2 save
+chmod +x build.decod.es.sock
